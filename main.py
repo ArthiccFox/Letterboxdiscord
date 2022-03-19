@@ -24,7 +24,7 @@ for filename in os.listdir('./cogs'):
 async def on_message(message):
     client = f'<@!{bot.user.id}>'
     if message.content == client:
-        await message.channel.send("`prefixo: '?'\n exemplo: ?help`")
+        await message.channel.send("`prefixo: 't?'`")
     await bot.process_commands(message)
 
 bot.run(TOKEN)
