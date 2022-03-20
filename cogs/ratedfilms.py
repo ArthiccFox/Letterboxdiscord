@@ -27,9 +27,13 @@ class rated_c(commands.Cog):
     async def ratedfilms(self, ctx, member: discord.Member):  
         cursor = vscon.cursor()
         cursor.execute(f"""SELECT * FROM tb_users WHERE U_ID='{int(member.id)}'; """)
-        reg = list(cursor.fetchone())
-        
-        await ctx.send(f'`{member.display_name} tem {ratedfilm(reg[1])} filmes logados (com rate)`')
+
+        if cursor.fetchone() != None:
+            reg = list(cursor.fetchone())
+            
+            await ctx.send(f'`{member.display_name} tem {ratedfilm(reg[1])} filmes logados (com rate)`')
+        else:
+            await ctx.send('esse usuario nao esta registrado, use t?help')
 
 def setup(bot):
     bot.add_cog(rated_c(bot))

@@ -24,9 +24,13 @@ class yfilms_c(commands.Cog):
     async def yfilms(self, ctx, member: discord.Member):
         cursor = vscon.cursor()
         cursor.execute(f"""SELECT * FROM tb_users WHERE U_ID='{int(member.id)}'; """)
-        reg = list(cursor.fetchone())
 
-        await ctx.send(f'`{member.display_name} tem {film(reg[1])} filmes logados nesse ano`')
+        if cursor.fetchone() != None:
+            reg = list(cursor.fetchone())
+
+            await ctx.send(f'`{member.display_name} tem {film(reg[1])} filmes logados nesse ano`')
+        else:
+            ctx.send('esse usuario nao esta registrado, use t?help')
 
 def setup(bot):
     bot.add_cog(yfilms_c(bot))
